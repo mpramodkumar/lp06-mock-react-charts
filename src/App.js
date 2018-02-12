@@ -24,7 +24,8 @@ class App extends Component {
     this.state = {
       count: 0,
       countriesData: [],
-      data2: []
+      data2: [],
+      visible:false
     };
     this.filterBrands = this.filterBrands.bind(this);
     this.increment = this
@@ -60,42 +61,42 @@ class App extends Component {
   }
 displaydata() {
 
-var newSelected = Object.assign({}, this.state.data2);
+/*var newSelected = Object.assign({}, this.state.data2);
 newSelected = [];
 var newData ={}
-newData.label = 'F.C Barcelona';
+newData.label1 = 'F.C Barcelona';
 newData.expanded = false;
 newData.children = [];
 
 var newChildData1 = {};
-newChildData1.label = 'F.C Barcelona';
+newChildData1.label2 = 'F.C Barcelona';
 newChildData1.expanded = false;
 newChildData1.children = [];
 
 var newChildDataofChild1 = {};
-newChildDataofChild1.label = 'Chelsea FC';
+newChildDataofChild1.label3 = 'Chelsea FC';
 var newChildDataofChild2 = {};
-newChildDataofChild2.label = 'F.C. Barcelona';
+newChildDataofChild2.label4 = 'F.C. Barcelona';
 newChildData1.children.push(newChildDataofChild1);
 newChildData1.children.push(newChildDataofChild2);
 
 var newChildData2 = {};
-newChildData2.label = 'Real Madrid';
+newChildData2.label5 = 'Real Madrid';
 newChildData2.expanded = false;
 newChildData2.children = [];
 
 var newChild2DataofChild1 = {};
-newChild2DataofChild1.label = 'Bayern Munich';
+newChild2DataofChild1.label6 = 'Bayern Munich';
 var newChild2DataofChild2 = {};
-newChild2DataofChild2.label = 'Real Madrid';
+newChild2DataofChild2.label7 = 'Real Madrid';
 newChildData2.children.push(newChild2DataofChild1);
 newChildData2.children.push(newChild2DataofChild2);
 
 newData.children.push(newChildData1);
 newData.children.push(newChildData2);
-newSelected.push(newData);
+newSelected.push(newData);*/
 this.setState({
-  data2:newSelected
+  visible:true
 })
 
   }
@@ -131,14 +132,14 @@ this.setState({
         }
       ]
     }];
-    console.log(JSON.stringify(this.state.data2));
-    if (this.state.data2.length > 0) {
-      alert('if');
+
+    if (this.state.visible) {
+
       return (
         <OrganizationChart value={data2}></OrganizationChart>
       );
     } else {
-      alert('else');
+
       return null;
     }
   }
