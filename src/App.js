@@ -10,22 +10,45 @@ import FusionCharts from 'fusioncharts';
 // Load the charts module
 import charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
-import PDFReader from "react-pdf-reader";
+//import PDFReader from "react-pdf-reader";
 import "react-pdf-reader/dist/TextLayerBuilder.css";
 import "react-pdf-reader/dist/PdfReader.css";
+import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
 
-const PDF_URL = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
+//const PDF_URL = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      count: 0
+      count: 0,
+      countriesData: []
     };
+    this.filterBrands = this.filterBrands.bind(this);
+    this.brands = ["Audi", "BMW", "Fiat", "Ford", "Honda", "Jaguar", "Mercedes", "Renault", "Volvo"];
     this.increment = this
       .increment
       .bind(this);
     charts(FusionCharts)
+  }
+
+  
+  
+  filterBrands(event) {
+    setTimeout(() => {
+        let results;
+
+        if (event.query.length === 0) {
+            results = [...this.brands];
+        }
+        else {
+            results = this.brands.filter((brand) => {
+                return brand.toLowerCase().startsWith(event.query.toLowerCase());
+            });
+        }
+
+        this.setState({ filteredBrands: results });
+    }, 250);
   }
 
   increment() {
@@ -117,11 +140,25 @@ class App extends Component {
       }
     };
     return (
+      <div>
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
           <h2>Welcome to PrimeReact</h2>
         </div>
+        <div>
+          <h3>Basic</h3>
+            <AutoComplete 
+              value={this.state.brand} 
+              suggestions={this.state.filteredBrands} 
+              completeMethod={this.filterBrands} 
+              size={30} 
+              minLength={1}
+              placeholder="Hint: type 'v' or 'f'" 
+              dropdown={true} 
+              onChange={(e) => this.setState({brand: e.value})} />
+            <span style={{ marginLeft: "50px" }}>Brand: {this.state.brand || "none"}</span>
+      </div>
         <div className="App-intro">
           <Button label="Click" onClick={this.increment}/>
 
@@ -135,8 +172,8 @@ class App extends Component {
         </div>
         <p className="message-box">The value that you have selected is:
           <span id="value">nothing</span>
-        </p>
-
+        </p>        
+      </div>
       </div>
     );
   }
