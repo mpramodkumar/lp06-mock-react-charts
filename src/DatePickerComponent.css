@@ -1,0 +1,24 @@
+.ui-inputtext{
+    background: yellow;
+
+}
+
+
+.ui-datepicker {
+    color: pink;
+    background: purple;
+}
+
+.ui-datepicker-header {
+    color: pink;
+    background: green;
+    background-color: red;
+}
+
+.ui-inputtext{
+    color: violet;
+}
+
+.ui-state-disabled{
+    display: none;
+}

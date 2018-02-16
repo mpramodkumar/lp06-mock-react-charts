@@ -14,13 +14,16 @@ import PDFReader from "react-pdf-reader";
 import "react-pdf-reader/dist/TextLayerBuilder.css";
 import "react-pdf-reader/dist/PdfReader.css";
 
+import DatePickerComponent from './DatePickerComponent';
+
 const PDF_URL = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      count: 0
+      count: 0,
+      createdDate: ''
     };
     this.increment = this
       .increment
@@ -137,6 +140,7 @@ class App extends Component {
           <span id="value">nothing</span>
         </p>
 
+        <DatePickerComponent/>
       </div>
     );
   }
