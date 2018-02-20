@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Button } from 'primereact/components/button/Button';
 import logo from './logo.png';
 import './App.css';
@@ -15,6 +17,8 @@ import "react-pdf-reader/dist/TextLayerBuilder.css";
 import "react-pdf-reader/dist/PdfReader.css";
 import { AutoComplete } from 'primereact/components/autocomplete/AutoComplete';
 import { OrganizationChart } from 'primereact/components/organizationchart/OrganizationChart';
+import { loadChartData } from './store/actions/fetchChartDataAction';
+
 
 //const PDF_URL = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
 class App extends Component {
@@ -36,25 +40,6 @@ class App extends Component {
   componentDidMount() {
     this.brands = ["Audi", "BMW", "Fiat", "Ford", "Honda", "Jaguar", "Mercedes", "Renault", "Volvo"];
   }
-
-  filterBrands(event) {
-    setTimeout(() => {
-      let results;
-
-      if (event.query.length === 0) {
-        results = [...this.brands];
-      }
-      else {
-        results = this.brands.filter((brand) => {
-          return brand.toLowerCase().startsWith(event.query.toLowerCase());
-        });
-      }
-
-      this.setState({ filteredBrands: results });
-    }, 250);
-  }
-
-  
   
   filterBrands(event) {
     setTimeout(() => {
@@ -68,7 +53,6 @@ class App extends Component {
                 return brand.toLowerCase().startsWith(event.query.toLowerCase());
             });
         }
-
         this.setState({ filteredBrands: results });
     }, 250);
   }
@@ -79,7 +63,6 @@ class App extends Component {
     });
   }
 displaydata() {
-
 /*var newSelected = Object.assign({}, this.state.data2);
 newSelected = [];
 var newData ={}
@@ -117,51 +100,54 @@ newSelected.push(newData);*/
 this.setState({
   visible:true
 })
-
+this.props.dispatch(
+  loadChartData("an")
+);
   }
 
   renderOrganizationChat() {
-    var data2 = [{
-      label: 'F.C Barcelona',
-      expanded: false,
-      children: [
-        {
-          label: 'F.C Barcelona',
-          expanded: false,
-          children: [
-            {
-              label: 'Chelsea FC'
-            },
-            {
-              label: 'F.C. Barcelona'
-            }
-          ]
-        },
-        {
-          label: 'Real Madrid',
-          expanded: false,
-          children: [
-            {
-              label: 'Bayern Munich'
-            },
-            {
-              label: 'Real Madrid'
-            }
-          ]
-        }
-      ]
-    }];
+    // var data2 = [{
+    //   label: 'F.C Barcelona',
+    //   expanded: false,
+    //   children: [
+    //     {
+    //       label: 'F.C Barcelona',
+    //       expanded: false,
+    //       children: [
+    //         {
+    //           label: 'Chelsea FC'
+    //         },
+    //         {
+    //           label: 'F.C. Barcelona'
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       label: 'Real Madrid',
+    //       expanded: false,
+    //       children: [
+    //         {
+    //           label: 'Bayern Munich'
+    //         },
+    //         {
+    //           label: 'Real Madrid'
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // }];
+    //this.props.chartData = data2;
 
-    if (this.state.visible) {
-
+    if (this.state.visible && this.props.chartData.length>0 && this.props.chartData!==undefined) {
       return (
-        <OrganizationChart value={data2}></OrganizationChart>
+        // <OrganizationChart value={data2}></OrganizationChart>
+        <OrganizationChart value={this.props.chartData}></OrganizationChart>
       );
     } else {
-
       return null;
     }
   }
+
   render() {
     var data = {
       labels: [
@@ -281,4 +267,13 @@ this.setState({
   }
 }
 
-export default App;
+App.propTypes={
+  dispatch: PropTypes.func.isRequired,
+  chartData: PropTypes.array,
+}
+
+const mapStateToProps = state => ({
+  chartData: state.chartDataReducer.chartdatas,
+});
+
+export default connect(mapStateToProps)(App);
