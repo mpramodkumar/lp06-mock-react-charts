@@ -2,6 +2,7 @@ import { Tree } from 'primereact/components/tree/Tree';
 import { Tooltip } from 'primereact/components/tooltip/Tooltip';
 import React, { Component } from 'react';
 import './TreeDemo.css';
+
 class TreeDemo extends Component {
     constructor(props) {
         super(props);
