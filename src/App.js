@@ -18,7 +18,7 @@ import "react-pdf-reader/dist/PdfReader.css";
 import { AutoComplete } from 'primereact/components/autocomplete/AutoComplete';
 import { OrganizationChart } from 'primereact/components/organizationchart/OrganizationChart';
 import { loadChartData } from './store/actions/fetchChartDataAction';
-
+import TreeDemo from './TreeDemo';
 
 //const PDF_URL = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
 class App extends Component {
@@ -62,7 +62,7 @@ class App extends Component {
       count: this.state.count + 1
     });
   }
-displaydata() {
+
 /*var newSelected = Object.assign({}, this.state.data2);
 newSelected = [];
 var newData ={}
@@ -97,51 +97,20 @@ newChildData2.children.push(newChild2DataofChild2);
 newData.children.push(newChildData1);
 newData.children.push(newChildData2);
 newSelected.push(newData);*/
+displaydata() {
 this.setState({
   visible:true
 })
 this.props.dispatch(
   loadChartData("an")
 );
-  }
+}
 
   renderOrganizationChat() {
-    // var data2 = [{
-    //   label: 'F.C Barcelona',
-    //   expanded: false,
-    //   children: [
-    //     {
-    //       label: 'F.C Barcelona',
-    //       expanded: false,
-    //       children: [
-    //         {
-    //           label: 'Chelsea FC'
-    //         },
-    //         {
-    //           label: 'F.C. Barcelona'
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       label: 'Real Madrid',
-    //       expanded: false,
-    //       children: [
-    //         {
-    //           label: 'Bayern Munich'
-    //         },
-    //         {
-    //           label: 'Real Madrid'
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }];
-    //this.props.chartData = data2;
 
     if (this.state.visible && this.props.chartData.length>0 && this.props.chartData!==undefined) {
       return (
-        // <OrganizationChart value={data2}></OrganizationChart>
-        <OrganizationChart value={this.props.chartData}></OrganizationChart>
+        <OrganizationChart value={this.props.chartData}></OrganizationChart>        
       );
     } else {
       return null;
@@ -232,7 +201,6 @@ this.props.dispatch(
       }
     };
     return (
-      <div>
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -245,7 +213,7 @@ this.props.dispatch(
 
         <h3>Basic</h3>
         <p>Hierarchical data with zero configuration.</p>
-        {this.renderOrganizationChat()}
+        {this.renderOrganizationChat()}        
         <p>Number of Clicks: {this.state.data2}</p>
         <div className="App-intro">
           <Button label="Click" onClick={this.increment} />
@@ -260,8 +228,8 @@ this.props.dispatch(
         </div>
         <p className="message-box">The value that you have selected is:
           <span id="value">nothing</span>
-        </p>        
-      </div>
+        </p>
+        <TreeDemo/>
       </div>
     );
   }

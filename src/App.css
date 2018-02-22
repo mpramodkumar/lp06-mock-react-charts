@@ -28,3 +28,23 @@
   width: 35%;
   margin-left: 33%;
 }
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+width: 75%;
+}
+
+.right {
+width: 25%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,17 @@
+#layout-content {
+    background-color: #f9f9f9;
+}
+#layout-content .content-section.implementation {
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    text-align: left;
+}
+#layout-content .content-section {
+    display: block;
+    border-bottom: 1px solid #dde3e6;
+    padding: 30px;
+    background-color: #f5f7f8;
+}
+.ui-tree {
+    width: 43%;
+}
